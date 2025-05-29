@@ -1,35 +1,30 @@
 package src;
 
+import src.RoleSQL;
+import src.Roles;
+
 import java.util.Scanner;
 
 public class User {
-    static String correctUsername = Constants.getUsername();
-    static String correctUserPassword = Constants.getUserPassword();
-    static String correctAdminPassword = Constants.getAdminPassword();
-    static String correctAdminusername = Constants.getAdminUsername();
 
     public static Roles Login() {
         Scanner sc = new Scanner(System.in);
-
 
         while (true) {
             System.out.println("Enter username: ");
             String inputUsername = sc.nextLine();
             System.out.println("Enter password: ");
-            String inputUserPassword = sc.nextLine();
+            String inputPassword = sc.nextLine();
 
-            if (inputUsername.equals(correctUsername) && inputUserPassword.equals(correctUserPassword)) {
-                System.out.println("Welcome to the Inventory Manager");
-                return new Roles(inputUsername, "user");
+            // This method should return role or null
+            String role = RoleSQL.checkUser(inputUsername, inputPassword);
 
-
-            } else if ((inputUsername.equals(correctAdminusername) && inputUserPassword.equals(correctAdminPassword))){
-                System.out.println("Welcome to the Inventory Manager");
-                return new Roles(inputUsername, "admin");
-            }
-            else {
+            if (role != null) {
+                System.out.println("Welcome to the Inventory Manager as " + role);
+                return new Roles(inputUsername, role);
+            } else {
                 System.out.println("Invalid username or password");
-                return null;
+                // Loop continues to allow retry
             }
         }
     }

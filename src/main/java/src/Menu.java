@@ -14,10 +14,10 @@ public class Menu {
                 System.out.println("Current Role: " + currentRole);
                 System.out.println("What would you like to do? (Search or Leave)");
                 String choice = sc.nextLine().trim().toLowerCase();
-                if(choice.equals("Leave")){
+                if(choice.equalsIgnoreCase("Leave")){
                     System.out.println("Goodbye!");
                     break;
-                }else if(choice.equals("Search")){
+                }else if(choice.equalsIgnoreCase("Search")){
                     System.out.println("Would you like to search for a product by name or location?");
                     String type = sc.nextLine();
                     System.out.println("What is it you want to search for?");
@@ -31,7 +31,7 @@ public class Menu {
 
             }
             if(currentRole.equals("admin")){
-                System.out.println("What would you like to do to the inventory? (Create, Update, Search, or Leave?)");
+                System.out.println("What would you like to do to the inventory? (Create, Update, Search, User Management, or Leave?)");
 
                 String choice = sc.nextLine().trim().toLowerCase();
 
@@ -112,6 +112,26 @@ public class Menu {
                     String searchItem = sc.nextLine();
 
                     SQL.Search(type, searchItem);
+                }
+                else if (choice.equalsIgnoreCase("User Management")) {
+                    System.out.println("Would you like to create, update, or remove a user?");
+                    String type = sc.nextLine().trim().toLowerCase();
+                    if (type.equalsIgnoreCase("Create")) {
+                        Roles r;
+                        System.out.println("Enter the name of the new user:");
+                        String username = sc.nextLine();
+                        System.out.println("Enter the password of the new user:");
+                        String password = sc.nextLine();
+                        System.out.println("Enter the expiration date of the new user:");
+                        String expiration = sc.nextLine();
+                        System.out.println("Enter the role of the new user:");
+                        String role = sc.nextLine();
+                        r = new Roles(username, password, expiration, role);
+                        RoleSQL.createRole(r);
+                    }
+                }
+                else{
+                    System.out.println("Invalid Choice");
                 }
             }
         }
