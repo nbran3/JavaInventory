@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class SQLCreation {
 
-    public static void createTable() {
+    public static void createWarehouseTable() {
         String url = Constants.getDbPath();
 
         var sql = "CREATE TABLE IF NOT EXISTS warehouse ("
@@ -28,8 +28,29 @@ public class SQLCreation {
         }
     }
 
+    public static void createLoginTable() {
+        String url = Constants.getDbPath();
+        var sql = "CREATE TABLE IF NOT EXISTS login ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "username TEXT NOT NULL UNIQUE,"
+                + "password_hash TEXT NOT NULL,"
+                + "expireDate TEXT NOT NULL,"
+                + "role TEXT NOT NULL CHECK(role in ('user','admin'))"+
+                ")";
+
+        try (var conn = DriverManager.getConnection(url);
+             var stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Table created successfully or already exists.");
+        } catch (SQLException e) {
+            System.out.println("Error creating table: " + e.getMessage());
+        }
+
+    }
+
     // Keep the main method for standalone testing
     public static void main(String[] args) {
-        createTable();
+        //createWarehouseTable();
+        createLoginTable();
     }
 }
