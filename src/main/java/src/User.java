@@ -15,6 +15,7 @@ public class User {
             String inputUsername = sc.nextLine();
             System.out.println("Enter password: ");
             String inputPassword = sc.nextLine();
+            inputPassword = PasswordUtils.encryptPassword(inputPassword);
 
             String role = RoleSQL.checkUser(inputUsername, inputPassword);
 

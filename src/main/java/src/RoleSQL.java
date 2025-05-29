@@ -25,12 +25,13 @@ public class RoleSQL {
 
     public static void createRole(Roles r) {
         String url = Constants.getDbPath();
+        String password = PasswordUtils.encryptPassword(r.getPassword());
         try (var conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 String sql = "INSERT INTO Login (username, password_hash, expireDate, role) VALUES (?, ?, ?, ?)";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, r.getUsername());
-                    pstmt.setString(2, r.getPassword());
+                    pstmt.setString(2, password);
                     pstmt.setString(3, r.getExpireDate());
                     pstmt.setString(4, r.getRole());
                     pstmt.executeUpdate();
