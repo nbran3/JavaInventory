@@ -16,7 +16,6 @@ public class User {
             System.out.println("Enter password: ");
             String inputPassword = sc.nextLine();
 
-            // This method should return role or null
             String role = RoleSQL.checkUser(inputUsername, inputPassword);
 
             if (role != null) {
@@ -24,7 +23,6 @@ public class User {
                 return new Roles(inputUsername, role);
             } else {
                 System.out.println("Invalid username or password");
-                // Loop continues to allow retry
             }
         }
     }

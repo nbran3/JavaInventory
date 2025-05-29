@@ -51,6 +51,6 @@ public class SQLCreation {
     // Keep the main method for standalone testing
     public static void main(String[] args) {
         //createWarehouseTable();
-        createLoginTable();
+        //createLoginTable();
     }
 }

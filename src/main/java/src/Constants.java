@@ -3,10 +3,10 @@ package src;
 public class Constants {
     private static String dbPath = "jdbc:sqlite:inventory.db";
 
-    private static String userPassword = "user";
-    private static String adminPassword = "admin";
-    private static String username = "user";
-    private static String adminUsername = "admin";
+    private static String userPassword;
+    private static String adminPassword;
+    private static String username;
+    private static String adminUsername;
 
     public static String getAdminPassword() {
         return adminPassword;

@@ -197,17 +197,22 @@ public class SQL {
                 String sql = "SELECT * FROM warehouse WHERE location = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, choice);
-                ResultSet rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                    System.out.println("ID: " + rs.getInt("id"));
-                    System.out.println("Name: " + rs.getString("name"));
-                    System.out.println("Price: " + rs.getDouble("price"));
-                    System.out.println("Quantity: " + rs.getInt("quantity"));
-                    System.out.println("Location: " + rs.getString("location"));
-                    System.out.println("Description: " + rs.getString("description"));
-                    System.out.println("ExpirationDate: " + rs.getString("expirationDate"));
-                    System.out.println("SellDate: " + rs.getString("sellDate"));
+                ResultSet rs = stmt.executeQuery();
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rs.getMetaData().getColumnCount();
+
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.print(rsmd.getColumnName(i) + "\t");
+                }
+                System.out.println();
+
+                while(rs.next()){
+                    for (int i = 1; i <= columnCount; i++) {
+                        System.out.println(rs.getString(i) + "\t");
+                    }
+                    System.out.println();
+                }
                 } else {
                     System.out.println("Item not found");
                 }
@@ -215,8 +220,7 @@ public class SQL {
             }
 
             }
-
-        } catch (SQLException e) {
+         catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
