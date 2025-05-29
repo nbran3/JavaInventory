@@ -13,7 +13,7 @@ public class Menu {
             if(currentRole.equals("user")){
                 System.out.println("Current Role: " + currentRole);
                 System.out.println("What would you like to do? (Search or Leave)");
-                String choice = sc.nextLine();
+                String choice = sc.nextLine().trim().toLowerCase();
                 if(choice.equals("Leave")){
                     System.out.println("Goodbye!");
                     break;
@@ -33,7 +33,8 @@ public class Menu {
             if(currentRole.equals("admin")){
                 System.out.println("What would you like to do to the inventory? (Create, Update, Search, or Leave?)");
 
-                String choice = sc.nextLine();
+                String choice = sc.nextLine().trim().toLowerCase();
+
 
                 if (choice.equalsIgnoreCase("Leave")) {
                     break;
@@ -44,6 +45,7 @@ public class Menu {
                     String name = sc.nextLine();
                     System.out.println("Enter the price of the product");
                     Double price = sc.nextDouble();
+                    sc.nextLine();
                     System.out.println("Enter the quantity of the product");
                     Integer quantity = sc.nextInt();
                     sc.nextLine();
